@@ -35,25 +35,25 @@ const tracks: Track[] = [
   { id: 'hatta', nameAr: 'مدخل مسارات حتا (Wadi Hub)', nameEn: 'Hatta MTB Entrance', lat: 24.8153, lng: 56.1597, distance: '50km+', difficulty: 'hard', emirate: 'Dubai' },
   { id: 'mushrif', nameAr: 'حديقة مشرف (MTB)', nameEn: 'Mushrif Park MTB', lat: 25.2187, lng: 55.4567, distance: '20km+', difficulty: 'medium', emirate: 'Dubai' },
   { id: 'jebel_jais', nameAr: 'مدخل جبل جيس', nameEn: 'Jebel Jais Entrance', lat: 25.9531, lng: 56.1842, distance: '30km (Climb)', difficulty: 'hard', emirate: 'Ras Al Khaimah' },
-  { id: 'jebel_hafeet', nameAr: 'مدخل جبل حفيت', nameEn: 'Jebel Hafeet Entrance', lat: 24.0586, lng: 55.7775, distance: '12km (Climb)', difficulty: 'hard', emirate: 'Abu Dhabi' },
+  { id: 'jebel_hafeet', nameAr: 'مدخل جبل حفيت (بداية الصعود)', nameEn: 'Jebel Hafeet Entrance', lat: 24.0586, lng: 55.7775, distance: '12km (Climb)', difficulty: 'hard', emirate: 'Abu Dhabi' },
   { id: 'musaar', nameAr: 'مسار - مسار الشارقة', nameEn: 'Masaar Sharjah', lat: 25.2622125, lng: 55.5923391, distance: '6km - 10km', difficulty: 'easy', emirate: 'Sharjah' },
   { id: 'batayeh', nameAr: 'مسار البطائح للدراجات', nameEn: 'Al Batayeh Bicycle Track', lat: 25.2033, lng: 55.6573, distance: '24km (48km Total)', difficulty: 'medium', emirate: 'Sharjah' },
 ]
 
+const emptySubscribe = () => () => {}
+const getServerSnapshot = () => false
+const getClientSnapshot = () => true
+
 export default function InteractiveMap({ lang }: { lang: 'ar' | 'en' }) {
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  )
+  const mounted = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot)
 
   if (!mounted) return <div className="h-[500px] w-full bg-muted animate-pulse rounded-2xl flex items-center justify-center">Loading Map...</div>
 
   return (
     <div className="w-full h-[500px] rounded-2xl overflow-hidden shadow-xl border-4 border-white dark:border-border relative z-0">
-      <MapContainer
-        center={[24.8, 55.1]}
-        zoom={8}
+      <MapContainer 
+        center={[24.8, 55.1]} 
+        zoom={8} 
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom={false}
       >
@@ -79,7 +79,7 @@ export default function InteractiveMap({ lang }: { lang: 'ar' | 'en' }) {
                       {lang === 'ar' ? `الإمارة: ${track.emirate}` : `Emirate: ${track.emirate}`}
                     </span>
                   </div>
-                  <a
+                  <a 
                     href={`https://www.google.com/maps/dir/?api=1&destination=${track.lat},${track.lng}`}
                     target="_blank"
                     rel="noopener noreferrer"

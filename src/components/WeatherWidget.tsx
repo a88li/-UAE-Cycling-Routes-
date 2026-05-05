@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Wind, Thermometer } from 'lucide-react'
+import { Cloud, Sun, Wind, Thermometer, Droplets } from 'lucide-react'
 
 interface WeatherData {
   temp: number
@@ -17,9 +17,10 @@ export default function WeatherWidget({ lat, lng, lang }: { lat: number, lng: nu
   useEffect(() => {
     async function fetchWeather() {
       try {
+        // Using open-meteo.com (Free, no API key required)
         const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`)
         const data = await res.json()
-
+        
         setWeather({
           temp: Math.round(data.current.temperature_2m),
           windSpeed: Math.round(data.current.wind_speed_10m),
@@ -34,6 +35,8 @@ export default function WeatherWidget({ lat, lng, lang }: { lat: number, lng: nu
     }
 
     fetchWeather()
+
+    // Auto-refresh every 30 minutes
     const interval = setInterval(fetchWeather, 1800000)
     return () => clearInterval(interval)
   }, [lat, lng])

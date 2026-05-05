@@ -16,6 +16,7 @@ export default function SmartTools({ lang, weather }: { lang: 'ar' | 'en', weath
   const [speed, setSpeed] = useState(25)
 
   const { calories, water } = useMemo(() => {
+    // Calculator Logic
     const timeInHours = distance / speed
     let met = 4.0
     if (speed >= 30.6) met = 15.8
@@ -23,22 +24,25 @@ export default function SmartTools({ lang, weather }: { lang: 'ar' | 'en', weath
     else if (speed >= 22.5) met = 10.0
     else if (speed >= 19.3) met = 8.0
     else if (speed >= 16.1) met = 6.8
-
+    
     const cal = Math.round((met * 3.5 * weight / 200) * (timeInHours * 60))
 
-    let waterPerHour = 600
+    // Improved Water Calculation: Base + intensity + heat
+    let waterPerHour = 600 
     if (speed > 25) waterPerHour += 200
     if (speed > 30) waterPerHour += 200
     if (weather.temp > 30) waterPerHour *= 1.25
     if (weather.temp > 38) waterPerHour *= 1.3
+    
+    const waterAmount = Math.round((waterPerHour * timeInHours) / 50) * 50
 
-    const waterVal = Math.round((waterPerHour * timeInHours) / 50) * 50
-    return { calories: cal, water: waterVal }
+    return { calories: cal, water: waterAmount }
   }, [weight, distance, speed, weather.temp])
 
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-6">
+        {/* ─── CALCULATOR ─── */}
         <Card className="border-primary/20 shadow-lg">
           <CardHeader className="bg-primary/5 border-b border-primary/10">
             <CardTitle className="flex items-center gap-2 text-primary">
@@ -48,7 +52,7 @@ export default function SmartTools({ lang, weather }: { lang: 'ar' | 'en', weath
           </CardHeader>
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="space-y-1.5">
+               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase text-muted-foreground">{lang === 'ar' ? 'الوزن (كجم)' : 'Weight (kg)'}</label>
                 <Input type="number" value={weight} onChange={(e) => setWeight(Number(e.target.value))} className="h-11" />
               </div>

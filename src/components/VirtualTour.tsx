@@ -24,14 +24,14 @@ export default function VirtualTour({ lang }: { lang: 'ar' | 'en' }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {points.map((point) => (
         <div key={point.id} className="group relative h-64 rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all" onClick={() => setActivePoint(point)}>
-          <Image
-            src={point.image}
-            alt={point.nameEn}
-            fill
+          <Image 
+            src={point.image} 
+            alt={point.nameEn} 
+            fill 
             className="object-cover group-hover:scale-110 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
+          
           <div className="absolute bottom-6 left-6 right-6">
             <div className="flex items-center gap-2 text-white/70 text-[10px] font-bold uppercase tracking-widest mb-2">
               <View className="size-3" />
@@ -58,36 +58,36 @@ export default function VirtualTour({ lang }: { lang: 'ar' | 'en' }) {
           </div>
 
           <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-            <div className="relative w-[300%] h-full animate-slow-pan pointer-events-none">
-              <Image
-                src={activePoint.image}
-                alt="360 View"
-                fill
-                className="object-cover"
-              />
-            </div>
+             <div className="relative w-[300%] h-full animate-slow-pan pointer-events-none">
+                <Image 
+                  src={activePoint.image} 
+                  alt="360 View" 
+                  fill 
+                  className="object-cover"
+                />
+             </div>
 
-            <div className="absolute inset-0 bg-black/10 pointer-events-none" />
-
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-8 text-white/60">
-              <div className="flex flex-col items-center gap-2">
-                <Move className="size-6 animate-bounce" />
-                <span className="text-[10px] font-bold">{lang === 'ar' ? 'اسحب للتدوير' : 'DRAG TO ROTATE'}</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Compass className="size-6" />
-                <span className="text-[10px] font-bold">{lang === 'ar' ? 'البوصلة' : 'COMPASS'}</span>
-              </div>
-            </div>
+             <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+             
+             <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-8 text-white/60">
+                <div className="flex flex-col items-center gap-2">
+                  <Move className="size-6 animate-bounce" />
+                  <span className="text-[10px] font-bold">{lang === 'ar' ? 'اسحب للتدوير' : 'DRAG TO ROTATE'}</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Compass className="size-6" />
+                  <span className="text-[10px] font-bold">{lang === 'ar' ? 'البوصلة' : 'COMPASS'}</span>
+                </div>
+             </div>
           </div>
-
+          
           <div className="absolute bottom-6 right-6 bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/10 max-w-xs text-white/80 text-xs flex gap-3">
-            <Info className="size-5 shrink-0 text-primary" />
-            <p>
-              {lang === 'ar'
-                ? 'هذه معاينة افتراضية للمسار باستخدام تقنية الواقع المعزز لتجربة المكان قبل الذهاب.'
-                : 'This is a virtual preview of the track using AR technology to experience the location before going.'}
-            </p>
+             <Info className="size-5 shrink-0 text-primary" />
+             <p>
+                {lang === 'ar' 
+                  ? 'هذه معاينة افتراضية للمسار باستخدام تقنية الواقع المعزز لتجربة المكان قبل الذهاب.' 
+                  : 'This is a virtual preview of the track using AR technology to experience the location before going.'}
+             </p>
           </div>
         </div>
       )}
